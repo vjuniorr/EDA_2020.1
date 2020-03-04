@@ -77,11 +77,11 @@ Node *bst_clear(Node *node){
     return nullptr;
 }
 
- Node *bst_remove(Node *node, Tkey key){
+Node *bst_remove(Node *node, Tkey key){
      
- }
+}
 
- int bst_height(Node *node){
+int bst_height(Node *node){
     if(node == nullptr){ // Caso base da recursão
         return 0;
     }
@@ -90,4 +90,25 @@ Node *bst_clear(Node *node){
     }else{
         return 1 + bst_height(node->right); // Se a folha mais longe da raiz estiver na sub-arvore direita retorna sua distancia + 1
     }
- }
+}
+
+bool bst_empty(Node* node){
+    if(node == nullptr){
+        return true;
+    }
+    return false;
+}
+
+Node *bst_minimum(Node *node){
+    if(node->left == nullptr){ // Se o proximo nó a esquerda for nulo, quer dizer que aquele nó é o menor da arvore
+        return node;
+    }
+    return bst_minimum(node->left); // Procura pelo menor nó
+}
+
+Node *bst_maximum(Node *node){
+    if(node->right == nullptr){ // Se o proximo nó a direita for nulo, quer dizer que aquele nó é o menor da arvore
+        return node;
+    }
+    return bst_maximum(node->right); // Procura pelo maior nó
+}
