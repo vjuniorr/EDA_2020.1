@@ -55,7 +55,7 @@ void bst_preorder(Node *node){
     if(node == nullptr){
         return;
     }
-    cout << node->key << ": " << node->value;
+    cout << node->key << " : " << node->value << endl;
     bst_preorder(node->left);
     bst_preorder(node->right);
 }
@@ -79,4 +79,15 @@ Node *bst_clear(Node *node){
 
  Node *bst_remove(Node *node, Tkey key){
      
+ }
+
+ int bst_height(Node *node){
+    if(node == nullptr){ // Caso base da recursão
+        return 0;
+    }
+    if(bst_height(node->left) > bst_height(node->right)){ // Verifica a maior distancia para retornar
+        return 1 + bst_height(node->left); // Se a folha mais longe da raiz estiver na sub-arvore esquerda retorna sua distancia + 1
+    }else{
+        return 1 + bst_height(node->right); // Se a folha mais longe da raiz estiver na sub-arvore direita retorna sua distancia + 1
+    }
  }
