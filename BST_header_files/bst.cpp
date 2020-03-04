@@ -93,7 +93,7 @@ int bst_height(Node *node){
 }
 
 bool bst_empty(Node* node){
-    if(node == nullptr){
+    if(node == nullptr){ // Se a raiz da arvore for nula a arvore é vazia 
         return true;
     }
     return false;
