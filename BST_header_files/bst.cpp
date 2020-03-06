@@ -113,9 +113,7 @@ Node *bst_maximum(Node *node){
     return bst_maximum(node->right); // Procura pelo maior nó
 }
 
-Node* bst_successor(Node* root, Node *x){
-    Node* sucessor = nullptr;
-    
+Node* bst_successor(Node* root, Node *x){   
     if(bst_empty(root)){
         return nullptr;
     }
