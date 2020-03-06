@@ -112,3 +112,26 @@ Node *bst_maximum(Node *node){
     }
     return bst_maximum(node->right); // Procura pelo maior nó
 }
+
+Node* bst_successor(Node* root, Node *x){
+    Node* sucessor = nullptr;
+    
+    if(bst_empty(root)){
+        return nullptr;
+    }
+
+    while(root->key != x->key){
+        if(root->key > x->key){
+            root = root->left;
+        }else{
+            root = root->right;
+        }
+    }
+
+    return bst_minimum(root->right);
+    
+}
+
+Node* bst_predecessor(Node* root, Node *x){
+
+}
