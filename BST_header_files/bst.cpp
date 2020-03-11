@@ -1,4 +1,4 @@
-#include <iostream>
+#include <bits/stdc++.h>
 #include "item.h"
 #include "bst.h"
 
@@ -34,21 +34,17 @@ Node *bst_search(Node *node, Tkey myKey){
 }
 
 Node *bst_insert(Node *node, Tkey myKey, Tvalue value){
-    if(bst_search(node, myKey) != nullptr){
-        cout << "A chave já existe na arvore";
-        return bst_search(node, myKey);
-    }
     if(node == nullptr){
         node = new Node;
         node->key = myKey;
         node->value = value;
         node->left = node->right = nullptr;
-        return node;
-    }else if(node->key < myKey){
-        return bst_insert(node->right, myKey, value);
-    }else{
-        return bst_insert(node->left, myKey, value);
+    }else if(myKey < node->key){
+        node->left = bst_insert(node->left, myKey, value);
+    }else if(myKey > node->key){
+        node->right = bst_insert(node->right, myKey, value);
     }
+    return node;
 }
 
 void bst_preorder(Node *node){
@@ -156,5 +152,36 @@ Node* bst_successor(Node* root, Node *x){
 }
 
 Node* bst_predecessor(Node* root, Node *x){
+    Node* aux = root;
+    Node* kaux = root;
+    Tkey varK = -9999;
 
+    if(root == nullptr){
+        return nullptr;
+    }
+    if(x == bst_minimum(root)){
+        cout << "O valor passado é o menor nó da arvore" << endl;
+        return nullptr;
+    }
+    if(x->left != nullptr){
+        return bst_maximum(x->left);
+    }else{
+        while(aux != x){
+            //cout << "Entrou no laço" << endl;
+            if(aux->key > varK && aux->key < x->key){
+                    kaux = aux;
+                    varK = kaux->key;
+                }
+            if(aux->key > x->key){
+                //cout << "Entru na primeira condição" << endl;
+                aux = aux->left;
+            }else{
+                //cout << "Entrou na segunda condição" << endl;
+                aux = aux->right;
+            }
+        }
+
+        return kaux;
+    }
+    return nullptr;
 }
