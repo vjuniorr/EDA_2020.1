@@ -74,8 +74,30 @@ Node *bst_clear(Node *node){
 }
 
 Node *bst_remove(Node *node, Tkey key){
-     
+    if(node == nullptr){ // Se a raiz for nula eu retorno nulo
+        return nullptr;
+    }
+    if(node->key > key){ // Percorrendo a arvore
+        node->left = bst_remove(node->left, key); // O no a esquerda recebe o no q a função retornar indo pra esquerda
+    }else if(node->key < key){
+        node->right = bst_remove(node->right, key); // O no a direita recebe o no q a função retornar indo pra direita
+    }else{
+        if(node->left == nullptr){ // Caso em que ele só tem um filho ou nenhum filho
+            Node* aux = node->right; // Pode ou não ser nulo
+            delete node;
+            return aux;
+        }else if(node->right == nullptr){
+            Node* aux = node->left; // Pode ou não ser nulo 
+            delete node;
+            return aux;
+        } // Caso em que ele possui os dois filhos
+        Node* aux = bst_minimum(node->right); // Meu auxiliar vai receber o menor dos maiores
+        node->key = aux->key; // Meu no recebe a mesma chave 
+        node->right = bst_remove(node->right, aux->key); // Meu no a direita recebe o no que é removido na subarvore direita que possui o valor do auxiliar
+        return node; // Retorno o no com sua subarvore completa 
+    }    
 }
+     
 
 int bst_height(Node *node){
     if(node == nullptr){ // Caso base da recursão

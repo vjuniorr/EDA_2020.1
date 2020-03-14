@@ -43,6 +43,9 @@ int main(){
         cout << bst_search(root, 5)->key << " predecessor -> " << bst_predecessor(root,bst_search(root, 5))->key << endl;
     }*/
     
+    bst_remove(root, 3);
+    bst_preorder(root);
+
     //cout << bst_height(root) << endl;
     root = bst_clear(root);
 
