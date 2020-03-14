@@ -110,44 +110,32 @@ Node *bst_maximum(Node *node){
 }
 
 Node* bst_successor(Node* root, Node *x){
-    Node* aux = root;
-    
     if(bst_empty(root)){
+        cout << "A arvore passada esta vazia" << endl;
         return nullptr;
     }
-
-    while(aux->key != x->key){
-        if(aux->key > x->key){
-            aux = aux->left;
-        }else{
-            aux = aux->right;
-        }
+    if(x == bst_maximum(root)){
+        cout << "O no passado e o maior no da arvore" << endl;
+        return nullptr;
     }
-    
-    if(aux->right != nullptr){
-        return bst_minimum(aux->right); // Se o x tiver subarvore a direita procura o minimo desta subarvore
-    }else{ // Caso em que ele não possui subarvore a direita e o seu sucessor está em uma camada superior a ele na arvore
-        aux = root;
-        Node* kaux = aux;
-        
+    if(x->right != nullptr){
+        return bst_minimum(x->right);
+    }else{
+        Node* aux = root;
+        Node* Tkey = aux;
+
         while(aux->key != x->key){
-        if(aux->key > x->key){
-            aux = aux->left;
-            if(aux->key > x->key && aux->key < kaux->key){ // Se a chave da minha raiz for maior que a chave do meu ponteiro e se a chave da minha raiz for menor que a dor auxiliar eu troco o sucessor
-                kaux = aux; // Meu auxiliar vai receber o novo nó com a chave menor q a anterior e maior que a chave do nó x
-            }
-        }else{
-           aux = aux->right;
-           if(aux->key > x->key && aux->key < kaux->key){ // Se a chave da minha raiz for maior que a chave do meu ponteiro e se a chave da minha raiz for menor que a dor auxiliar eu troco o sucessor
-                kaux = aux; // Meu auxiliar vai receber o novo nó com a chave menor q a anterior e maior que a chave do nó x
+            if(aux->key > x->key){
+                if(Tkey->key > aux->key){
+                    Tkey = aux;
+                }
+                aux = aux->left;
+            }else{
+                aux = aux->right;
             }
         }
-        if(kaux->key < x->key){
-            return nullptr;
-        }
-        return kaux;
-    }
 
+        return Tkey;
     }
 }
 
