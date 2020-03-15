@@ -18,4 +18,9 @@ int avl_size(Node *node);
 bool avl_empty(Node *node);
 Node *avl_clear(Node *node);
 
+// Funções de rotação para balancear a arvore
+
+Node* rotRight(Node* node);
+Node* rotLeft(Node* node);
+
 #endif 

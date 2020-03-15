@@ -67,7 +67,17 @@ Node *avl_clear(Node *node){
 }
 
 int avl_size(Node *node){
+    if(node == nullptr){
+        return 0;
+    }
+    return 1 + avl_size(node->left) + avl_size(node->right);
+}
 
+int avl_height(Node *node){
+    if(node == nullptr){
+        return 0;
+    }
+    return node->height;
 }
 
 /* Node* avl_insert(Node *node, Tkey key, Tvalue value){
@@ -75,6 +85,7 @@ int avl_size(Node *node){
         Node* novo = new Node();
         novo->key = key;
         novo->value = value;
+        novo->height = 0;
         return novo;
     }
     if(avl_search(node, key) != nullptr){
@@ -88,3 +99,27 @@ int avl_size(Node *node){
     }
     return node;
 } */
+
+Node* rotRight(Node* node){
+    // Rotacionando os elementos
+    Node* aux = node->left; // Aux vai receber a sub-arvore esquerda do meu no
+    node->left = aux->right; // A sub-arvore esquerda do no vai ser a sub-arvore direita do aux
+    aux->right = node; // O meu auxiliar passa a ter o no e seus filhos (que são maiores que ele) como sub-arvore a direita
+    // Atualizar a aultura dos nos 
+    node->height = 1 + max(avl_height(node->left), avl_height(node->right));
+    aux->height = 1 + max(avl_height(node->left), avl_height(node->right));
+
+    return aux; 
+}
+
+Node* rotLeft(Node* node){
+    // Rotacionando os elementos
+    Node* aux = node->right; // Aux vai receber a sub-arvore direita do meu no
+    node->right = aux->left; // A sub-arvore direita do no vai ser a sub-arvore esquerda do aux
+    aux->left = node; // O meu auxiliar passa a ter o no e seus filhos (que são menores que ele) como sub-arvore a esquerda
+    // Atualizar a aultura dos nos 
+    node->height = 1 + max(avl_height(node->left), avl_height(node->right));
+    aux->height = 1 + max(avl_height(node->left), avl_height(node->right));
+
+    return aux;
+}
