@@ -49,6 +49,24 @@ void avl_inorder(Node *node){
     avl_inorder(node->right);
 }
 
+void avl_level_traversal(Node *node){
+    if(node == nullptr){
+        return;
+    }
+    stack<Node*> fila;
+    Node* aux = node;
+    fila.push(aux);
+
+    while(!fila.empty()){
+        cout << fila.top()->key << endl;
+        fila.push(fila.top()->left);
+        fila.push(fila.top()->right);
+        fila.pop();
+    }
+    
+    return;
+}
+
 bool avl_empty(Node *node){
     if(node == nullptr){
         return true;
