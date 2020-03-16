@@ -97,5 +97,7 @@ Node* bst_successor(Node* root, Node *x);
  * da chave contida em x. */
 Node* bst_predecessor(Node* root, Node *x);
 
+void avl_level_traversal(Node *node);
+
 
 #endif

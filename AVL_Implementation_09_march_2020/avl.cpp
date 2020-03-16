@@ -51,16 +51,22 @@ void avl_inorder(Node *node){
 
 void avl_level_traversal(Node *node){
     if(node == nullptr){
+        cout << "A raiz passada e nula" << endl;
         return;
     }
-    stack<Node*> fila;
+
+    queue<Node*> fila;
     Node* aux = node;
     fila.push(aux);
 
     while(!fila.empty()){
-        cout << fila.top()->key << endl;
-        fila.push(fila.top()->left);
-        fila.push(fila.top()->right);
+        cout << fila.front()->key << endl;
+        if(fila.front()->left != nullptr){
+            fila.push(fila.front()->left);
+        }
+        if(fila.front()->right != nullptr){
+            fila.push(fila.front()->right);
+        }
         fila.pop();
     }
     

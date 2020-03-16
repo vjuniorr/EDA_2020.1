@@ -56,6 +56,30 @@ void bst_preorder(Node *node){
     bst_preorder(node->right);
 }
 
+void avl_level_traversal(Node *node){
+    if(node == nullptr){
+        cout << "A raiz passada e nula";
+        return;
+    }
+
+    queue<Node*> fila;
+    Node* aux = node;
+    fila.push(aux);
+
+    while(!fila.empty()){
+        cout << fila.front()->key;
+        if(fila.front()->left != nullptr){
+            fila.push(fila.front()->left);
+        }
+        if(fila.front()->right != nullptr){
+            fila.push(fila.front()->right);
+        }
+        fila.pop();
+    }
+    
+    return;
+}
+
 void bst_preorder(Node *node, void f(Node*)){
     if(node != nullptr){
         f(node);

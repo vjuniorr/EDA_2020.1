@@ -28,23 +28,23 @@ int main(){
     root = bst_insert(root, 12, 8.0);
     root = bst_insert(root, 4, 9.0);
     root = bst_insert(root, 5, 10.0);
-    root = bst_insert(root, 6, 11.0);
 
-    bst_preorder(root);
+    avl_level_traversal(root);
+    cout << endl;
     //bst_preorder(root, func);
-    if(bst_successor(root, bst_search(root, 14)) != nullptr){
+    /* if(bst_successor(root, bst_search(root, 14)) != nullptr){
         cout << "O sucessor do : " << bst_search(root, 14)->key << " = " << bst_successor(root, bst_search(root, 14))->key << endl;
     }else{
         cout << "Nao foi possivel encontrar o sucessor" << endl;
-    }
+    } */
     /*if(bst_predecessor(root,bst_search(root, 5)) == nullptr){
         cout << "Não foi possivel encontrar o predecessor do valor passado" << endl;    
     }else{
         cout << bst_search(root, 5)->key << " predecessor -> " << bst_predecessor(root,bst_search(root, 5))->key << endl;
     }*/
     
-    bst_remove(root, 3);
-    bst_preorder(root);
+    //bst_remove(root, 3);
+    //bst_preorder(root);
 
     //cout << bst_height(root) << endl;
     root = bst_clear(root);
