@@ -20,7 +20,11 @@ Node *avl_clear(Node *node);
 
 // Funções de rotação para balancear a arvore
 
-Node* rotRight(Node* node);
-Node* rotLeft(Node* node);
+Node* avl_rotRight(Node* node);
+Node* avl_rotLeft(Node* node);
+
+// Função para verificar se a arvore suas sub-arvores estão balanceadas
+
+int avl_balance(Node* node);
 
 #endif 

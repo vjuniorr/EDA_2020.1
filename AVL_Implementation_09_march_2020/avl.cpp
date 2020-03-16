@@ -60,14 +60,14 @@ void avl_level_traversal(Node *node){
     fila.push(aux);
 
     while(!fila.empty()){
-        cout << fila.front()->key << endl;
+        cout << fila.front()->key << endl; // Printa o primeiro elemento da fila
         if(fila.front()->left != nullptr){
-            fila.push(fila.front()->left);
+            fila.push(fila.front()->left); // Caso o filho esquerdo seja diferente de nulo adiciona o filho esquerdo
         }
         if(fila.front()->right != nullptr){
-            fila.push(fila.front()->right);
+            fila.push(fila.front()->right); // Caso o filho direito seja diferente de nulo adiciona o filho direito 
         }
-        fila.pop();
+        fila.pop(); // Remove o elemento que já foi printado
     }
     
     return;
@@ -104,7 +104,7 @@ int avl_height(Node *node){
     return node->height;
 }
 
-/* Node* avl_insert(Node *node, Tkey key, Tvalue value){
+Node* avl_insert(Node *node, Tkey key, Tvalue value){
     if(node == nullptr){
         Node* novo = new Node();
         novo->key = key;
@@ -121,10 +121,15 @@ int avl_height(Node *node){
     }else{
         node->right = avl_insert(node->right, key, value);
     }
-    return node;
-} */
 
-Node* rotRight(Node* node){
+    node->height = 1 + max(avl_height(node->left), avl_height(node->right));
+
+    return node;
+}
+
+// Funções de rotação para deixar a avl balanceada
+
+Node* avl_rotRight(Node* node){
     // Rotacionando os elementos
     Node* aux = node->left; // Aux vai receber a sub-arvore esquerda do meu no
     node->left = aux->right; // A sub-arvore esquerda do no vai ser a sub-arvore direita do aux
@@ -136,7 +141,7 @@ Node* rotRight(Node* node){
     return aux; 
 }
 
-Node* rotLeft(Node* node){
+Node* avl_rotLeft(Node* node){
     // Rotacionando os elementos
     Node* aux = node->right; // Aux vai receber a sub-arvore direita do meu no
     node->right = aux->left; // A sub-arvore direita do no vai ser a sub-arvore esquerda do aux
@@ -146,4 +151,12 @@ Node* rotLeft(Node* node){
     aux->height = 1 + max(avl_height(node->left), avl_height(node->right));
 
     return aux;
+}
+
+int avl_balance(Node* node){
+    if(node == nullptr){ // Se uma arvore está vazia ela está balanceada
+        return 0;
+    }
+
+    return avl_height(node->right) - avl_height(node->left);
 }
