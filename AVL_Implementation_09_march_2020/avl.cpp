@@ -123,6 +123,20 @@ Node* avl_insert(Node *node, Tkey key, Tvalue value){
     }
 
     node->height = 1 + max(avl_height(node->left), avl_height(node->right));
+    int equi = avl_balance(node);
+
+    if(equi < -1 && key  < node->left->key){
+        node = avl_rotRight(node);
+    }else if(equi < -1 && key > node->left->key){
+        node->left = avl_rotLeft(node->left);
+        node =avl_rotRight(node);
+    }else if(equi > 1 && key > node->right->key){
+        node = avl_rotLeft(node);
+    }else if(equi > 1 && key < node->right->key){
+        node->right = avl_rotRight(node->right);
+        node = avl_rotLeft(node);
+    }
+
 
     return node;
 }
