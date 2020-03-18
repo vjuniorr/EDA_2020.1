@@ -137,7 +137,6 @@ Node* avl_insert(Node *node, Tkey key, Tvalue value){
         node = avl_rotLeft(node);
     }
 
-
     return node;
 }
 
