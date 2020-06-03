@@ -112,14 +112,18 @@ Node* avl_insert(Node *node, Tkey key, Tvalue value){
         novo->height = 0;
         return novo;
     }
-    if(avl_search(node, key) != nullptr){
+    /* if(avl_search(node, key) != nullptr){
         cout << "Ja existe um no com essa chave" << endl;
         return nullptr;
-    }
+
+        Causo do segmentation fault... Mas pq?
+    } */
     if(node->key > key){
         node->left = avl_insert(node->left, key, value);
-    }else{
+    }else if(node->key < key){
         node->right = avl_insert(node->right, key, value);
+    }else{
+        return node;
     }
 
     node->height = 1 + max(avl_height(node->left), avl_height(node->right));
