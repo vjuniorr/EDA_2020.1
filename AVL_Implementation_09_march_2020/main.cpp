@@ -13,6 +13,7 @@ int main(){
     root = avl_insert(root, "d", "d");
     root = avl_insert(root, "e", "e");
     root = avl_insert(root, "f", "f");
+    root = avl_insert(root, "0", "0");
 
     avl_preorder(root);
     cout << avl_balance(root) << endl;
