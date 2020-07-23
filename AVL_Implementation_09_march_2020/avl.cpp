@@ -116,7 +116,7 @@ Node* avl_insert(Node *node, Tkey key, Tvalue value){
         cout << "Ja existe um no com essa chave" << endl;
         return nullptr;
 
-        Causo do segmentation fault... Mas pq?
+        Causa do segmentation fault... Mas pq?
     } */
     if(node->key > key){
         node->left = avl_insert(node->left, key, value);
