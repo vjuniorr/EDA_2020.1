@@ -17,4 +17,5 @@ int main(){
 
     avl_preorder(root);
     cout << avl_balance(root) << endl;
+    cout << avl_height(root) << endl;
 }
