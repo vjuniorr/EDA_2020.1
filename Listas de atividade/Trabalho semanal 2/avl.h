@@ -4,7 +4,7 @@
 
 struct Node;
 
-Node* avl_insert(Node *node, Tkey key, Tvalue); // Função que vai inserir os elementos da arvore
+Node* avl_insert(Node *node, Tkey key, Tvalue value); // Função que vai inserir os elementos da arvore
 Node* avl_clear(Node* node); // Função que vai limpar toda a arvore
 Tvalue avl_value(Node* node, Tkey key); // Função que retorn o value de uma chave, caso a chave exista
 void avl_preorder(Node* node); // Print da arvore em pre ordem

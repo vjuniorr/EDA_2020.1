@@ -69,4 +69,60 @@ Tvalue avl_value(Node* node, Tkey key){
     }
 }
 
+// Função que vai limpar a arvore apagando todos os nós
 
+Node* avl_clear(Node* node){
+    if(node == nullptr){ // Quando chego em uma posição invalida
+        return nullptr;
+    }
+
+    avl_clear(node->left); // Eliminando todos os filhos da esquerda da raiz passada
+    avl_clear(node->right); // Eliminando todos os filhos da direita da raiz passada
+    delete node; // Removendo a raiz passada
+    return nullptr;
+}
+
+// Funções que vão fazer a inserção e balanceamento na arvore
+
+Node* avl_insert(Node* node, Tkey key, Tvalue value){
+    if(node == nullptr){
+        Node* no = new Node();
+        no->key = key;
+        no->value = value;
+        no->height = 0;
+        return no;
+    }
+    if(key < node->key){
+        node->left = avl_insert(node->left, key, value);
+    }else if(key > node->key){
+        node->right = avl_insert(node->right, key, value);
+    }else{
+        return node;
+    }
+
+    node->height = 1 + max(avl_height(node->left), avl_height(node->right));
+    
+}
+
+Node* avl_rotRight(Node* node){
+    Node* aux = node->left;
+    node->left = aux->right;
+    aux->right = node;
+
+    node->height = 1 + max(avl_height(node->left), avl_height(node->right));
+    aux->height = 1 + max(avl_height(node->left), avl_height(node->right));
+
+    return aux;
+}
+
+Node* avl_rotLeft(Node* node){
+
+}
+
+Node* fixup_node(Node* node, Tkey key){
+
+}
+
+int avl_balance(Node* node){
+
+}
