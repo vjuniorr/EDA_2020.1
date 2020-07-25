@@ -85,30 +85,32 @@ Node* avl_clear(Node* node){
 // Funções que vão fazer a inserção e balanceamento na arvore
 
 Node* avl_insert(Node* node, Tkey key, Tvalue value){
-    if(node == nullptr){
+    if(node == nullptr){ // Quando encontro uma posição valida para criar um novo no
         Node* no = new Node();
         no->key = key;
         no->value = value;
         no->height = 0;
         return no;
     }
-    if(key < node->key){
+    if(key < node->key){ // Caso em que a chave passada é menor que a chave do no passado
         node->left = avl_insert(node->left, key, value);
-    }else if(key > node->key){
+    }else if(key > node->key){ // Caso em que a chave passada é maior que a chave do no passado
         node->right = avl_insert(node->right, key, value);
     }else{
-        return node;
+        return node; // Quando a chave passada é igual a chave do no em que estou eu retorno o no
     }
 
-    node->height = 1 + max(avl_height(node->left), avl_height(node->right));
-    
+    node->height = 1 + max(avl_height(node->left), avl_height(node->right)); // Recalculo a altura da arvore
+    node = fixup_node(node, key); // balanceando a arvore
+
+    return node;
 }
 
 Node* avl_rotRight(Node* node){
-    Node* aux = node->left;
-    node->left = aux->right;
-    aux->right = node;
-
+    Node* aux = node->left; // Aux recebe o no a esquerda do meu no passado
+    node->left = aux->right; // O no a esquerda passa a apontar para o filho a direita do no passado 
+    aux->right = node; // O aux passa a ter o no como seu filho a direita 
+    // Atualizando a altura dos nós que foram rotacionado na arvore
     node->height = 1 + max(avl_height(node->left), avl_height(node->right));
     aux->height = 1 + max(avl_height(node->left), avl_height(node->right));
 
@@ -116,13 +118,38 @@ Node* avl_rotRight(Node* node){
 }
 
 Node* avl_rotLeft(Node* node){
+    Node* aux= node->right; // Aux vai receber o no a direita do no passado
+    node->right = aux->left; // O no a direita passa a apontar para o filho a esquerda do aux
+    aux->left = node; // O no aux passa a ter o no como seu filho esquerdo
+    // Atualizando a altura dos nós
+    node->height = 1 + max(avl_height(node->left), avl_height(node->right));
+    aux->height = 1 + max(avl_height(node->left), avl_height(node->right));
 
+    return aux;
 }
 
 Node* fixup_node(Node* node, Tkey key){
+    int equi = avl_balance(node); // verificando se arvore esta balanceada
 
+    if(equi < -1 && key  < node->left->key){ // Caso em que faço a rotação a direita para balancear a arvore
+        node = avl_rotRight(node);
+    }else if(equi < -1 && key > node->left->key){ // Caso em que faço a rotação dupla a direita para balancear a arvore
+        node->left = avl_rotLeft(node->left);
+        node =avl_rotRight(node);
+    }else if(equi > 1 && key > node->right->key){  // Caso em que faço a rotação a esquerda para balancear a arvore
+        node = avl_rotLeft(node);
+    }else if(equi > 1 && key < node->right->key){ // Caso em que faço a rotação dupla a esquerda para balancear a arvore
+        node->right = avl_rotRight(node->right);
+        node = avl_rotLeft(node);
+    }
+
+    return node;
 }
 
 int avl_balance(Node* node){
+    if(node == nullptr){ // Se uma arvore está vazia ela está balanceada
+        return 0;
+    }
 
+    return avl_height(node->right) - avl_height(node->left);
 }
