@@ -55,7 +55,7 @@ int avl_height(Node* node){
 
 // Busca de um valor pela sua key
 
-Tvalue avl_value(Node* node, Tkey key){
+void avl_value(Node* node, Tkey key){
     if(node == nullptr){ // Caso passe uma raiz nula
         cout << "Key não encontrada na sua arvore" << endl;
         return;
@@ -65,7 +65,8 @@ Tvalue avl_value(Node* node, Tkey key){
     }else if(key > node->key){ // Se minha chave é maior o no deve estar a direita da raiz passada
         return avl_value(node->right, key);
     }else{ // Caso em que eu encontrei o nó 
-        return node->value;
+        cout << node->value << endl;
+        return;
     }
 }
 
