@@ -100,7 +100,7 @@ Node* avl_insert(Node* node, Tkey key, Tvalue value){
         return node; // Quando a chave passada é igual a chave do no em que estou eu retorno o no
     }
 
-    node->height = 1 + max(avl_height(node->left), avl_height(node->right)); // Recalculo a altura da arvore
+    node->height = 1 + max(avl_height(node->left), avl_height(node->right)); // Atualizando a altura do no
     node = fixup_node(node, key); // balanceando a arvore
 
     return node;
