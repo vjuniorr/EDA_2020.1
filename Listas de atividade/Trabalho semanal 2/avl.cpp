@@ -19,7 +19,7 @@ void avl_preorder(Node* node){
         return;
     }
 
-    cout << node->value << endl;
+    cout << node->key << ":" << node->value << endl;
     avl_preorder(node->left);
     avl_preorder(node->right);
 }
@@ -30,7 +30,7 @@ void avl_inorder(Node* node){
     }
 
     avl_inorder(node->left);
-    cout << node->value << endl;
+    cout << node->key << ":" << node->value << endl;
     avl_inorder(node->right);
 }
 
@@ -41,7 +41,7 @@ void avl_posorder(Node* node){
 
     avl_posorder(node->left);
     avl_posorder(node->right);
-    cout << node->value << endl;
+    cout << node->key << ":" << node->value << endl;
 }
 
 // Altura da arvore
@@ -57,7 +57,7 @@ int avl_height(Node* node){
 
 void avl_value(Node* node, Tkey key){
     if(node == nullptr){ // Caso passe uma raiz nula
-        cout << "Key não encontrada na sua arvore" << endl;
+        cout << "Chave não encontrada na sua arvore" << endl;
         return;
     }
     if(key < node->key){ // Se minha chave é menor o no deve estar a esquerda da raiz passada
