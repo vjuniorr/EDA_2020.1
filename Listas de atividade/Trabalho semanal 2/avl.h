@@ -19,4 +19,7 @@ Node* avl_rotLeft(Node* node); // Função que vai rotacionar a arvore para a es
 Node* fixup_node(Node* node, Tkey key); // Função que vai verificar qual rotação vai ser feita
 int avl_balance(Node* node); // Função que vai verificar o balanço da arvore
 
+// Menu
+
+void menu();
 #endif

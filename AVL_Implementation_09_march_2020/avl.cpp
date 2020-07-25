@@ -109,7 +109,7 @@ Node* avl_insert(Node *node, Tkey key, Tvalue value){
         Node* novo = new Node();
         novo->key = key;
         novo->value = value;
-        novo->height = 0;
+        novo->height = 1;
         return novo;
     }
     /* if(avl_search(node, key) != nullptr){
