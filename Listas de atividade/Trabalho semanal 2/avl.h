@@ -2,6 +2,10 @@
 #define AVL_H
 #include "item.h"
 
+/*
+Francisco Valdemi Leal Costa Junior - 485325
+*/
+
 struct Node;
 
 Node* avl_insert(Node *node, Tkey key, Tvalue value); // Função que vai inserir os elementos da arvore
