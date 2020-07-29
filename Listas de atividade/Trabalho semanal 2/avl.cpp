@@ -156,6 +156,8 @@ Node* fixup_node(Node* node, Tkey key){
     return node;
 }
 
+ // Função para verificar o balanceamento da arvore
+
 int avl_balance(Node* node){
     if(node == nullptr){ // Se uma arvore está vazia ela está balanceada
         return 0;
