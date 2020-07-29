@@ -12,6 +12,15 @@ struct Node{
     int height;
 };
 
+
+Tkey avl_getKey(Node* node){
+    return node->key;
+}
+
+Tvalue avl_getValue(Node* node){
+    return node->value;
+}
+
 // Funções de print da avl
 
 void avl_preorder(Node* node){
@@ -19,7 +28,7 @@ void avl_preorder(Node* node){
         return;
     }
 
-    cout << node->key << ":" << node->value << endl;
+    cout << avl_getKey(node) << ":" << avl_getValue(node) << endl;
     avl_preorder(node->left);
     avl_preorder(node->right);
 }
@@ -30,7 +39,7 @@ void avl_inorder(Node* node){
     }
 
     avl_inorder(node->left);
-    cout << node->key << ":" << node->value << endl;
+    cout << avl_getKey(node) << ":" << avl_getValue(node) << endl;
     avl_inorder(node->right);
 }
 
@@ -41,7 +50,7 @@ void avl_posorder(Node* node){
 
     avl_posorder(node->left);
     avl_posorder(node->right);
-    cout << node->key << ":" << node->value << endl;
+    cout << avl_getKey(node) << ":" << avl_getValue(node) << endl;
 }
 
 // Altura da arvore
@@ -65,7 +74,7 @@ void avl_value(Node* node, Tkey key){
     }else if(key > node->key){ // Se minha chave é maior o no deve estar a direita da raiz passada
         return avl_value(node->right, key);
     }else{ // Caso em que eu encontrei o nó 
-        cout << node->value << endl;
+        cout << avl_getValue(node) << endl;
         return;
     }
 }
@@ -136,7 +145,7 @@ Node* fixup_node(Node* node, Tkey key){
         node = avl_rotRight(node);
     }else if(equi < -1 && key > node->left->key){ // Caso em que faço a rotação dupla a direita para balancear a arvore
         node->left = avl_rotLeft(node->left);
-        node =avl_rotRight(node);
+        node = avl_rotRight(node);
     }else if(equi > 1 && key > node->right->key){  // Caso em que faço a rotação a esquerda para balancear a arvore
         node = avl_rotLeft(node);
     }else if(equi > 1 && key < node->right->key){ // Caso em que faço a rotação dupla a esquerda para balancear a arvore
@@ -184,7 +193,7 @@ void menu(){
             cin >> key;
             cout << "Digite o valor do elemento que vai ser inserido:";
             cin >> value;
-
+            
             root = avl_insert(root, key, value);
             system("clear");
             cout << "Elemento inserido com sucesso" << endl;
