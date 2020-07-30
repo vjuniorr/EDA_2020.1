@@ -182,3 +182,31 @@ Node* fixup_node(Node* node, Tkey key){
 
     return node;
 }
+
+Node* avl_delete(Node *node, Tkey key){
+    if(node == nullptr){
+        return nullptr;
+    }
+    if(key < node->key){
+        node->left = avl_delete(node->left, key);
+    }else if(key > node->key){
+        node->right = avl_delete(node->right, key);
+    }else if(node->left == nullptr && node->right == nullptr){
+        delete node;
+        return nullptr;
+    }else if(node->left == nullptr || node->right == nullptr){
+        Node* child;
+        if(node->left != nullptr){
+            child = node->left;
+        }else{
+            child = node->right;
+        }
+        delete node;
+        return child;
+    }else{
+        node->left = delete_predecessor(node, node->left);
+    }
+
+    node = fixup_node_deletion(node);
+    return node;
+}

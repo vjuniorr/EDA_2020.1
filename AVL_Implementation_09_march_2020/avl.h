@@ -23,6 +23,8 @@ Node *avl_clear(Node *node);
 Node* avl_rotRight(Node* node);
 Node* avl_rotLeft(Node* node);
 Node* fixup_node(Node* node, Tkey key);
+Node* delete_predecessor(Node* root, Node* node);
+Node* fixup_node_deletion(Node* node);
 
 // Função para verificar se a arvore suas sub-arvores estão balanceadas
 
