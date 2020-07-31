@@ -210,3 +210,21 @@ Node* avl_delete(Node *node, Tkey key){
     node = fixup_node_deletion(node);
     return node;
 }
+
+Node* delete_predecessor(Node* root, Node* node){
+    if(node->right != nullptr){
+        node->right = delete_predecessor(root, node->right);
+    }else{
+        root->key = node->key;
+        root->value = node->value;
+        Node* aux = node->left;
+        delete node;
+        return aux;
+    }
+    node = fixup_node_deletion(node);
+    return node;
+}
+
+Node* fixup_node_deletion(Node* node){
+    
+}
