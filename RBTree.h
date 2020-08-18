@@ -24,6 +24,6 @@ public:
     bool search(const Tkey &key, Tvalue *v) const;
     void preorder() const;
     bool empty() const;
-    RBTree();
+    ~RBTree();
 };
 #endif
