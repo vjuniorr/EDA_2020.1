@@ -117,3 +117,54 @@ void RBTree::RBinsert(Node* node){
 
     RBinsert_fixUp(node);
 }
+
+void RBTree::remove(const Tkey &key){
+    Node* aux = root;
+    
+    while(aux != nil && aux->key != key){
+        if(aux->key > key){
+            aux = aux->left;
+        }
+        aux = aux->right;
+    }
+
+    if(aux != nil){
+        RBdelete(aux);
+    }
+}
+
+void RBTree::RBdelete(Node* node){
+    Node* rem; // No que será removido
+    Node* suc; // No que vai tomar seu lugar
+
+    if(node->left == nil || node->right == nil){
+        rem = node;
+    }else{
+        rem = minimum(node->right);
+    }
+    if(rem->left != nil){
+        suc = rem->left;
+    }else{
+        suc = rem->right;
+    }
+    if(suc != nil){
+        suc->parent = rem->parent;
+    }
+    if(rem->parent == nil){
+        root = suc;
+    }else{
+        if(rem == rem->parent->left){
+            rem->parent->left = suc;
+        }else{
+            rem->parent->right = suc;
+        }
+    }
+    if(rem != node){
+        node->key = rem->key;
+    }
+    if(rem->color == BLACK){
+        RBdelete_fixUp(suc);
+    }
+
+    delete rem;
+}
