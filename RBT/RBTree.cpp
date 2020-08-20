@@ -161,10 +161,79 @@ void RBTree::RBdelete(Node* node){
     }
     if(rem != node){
         node->key = rem->key;
+        node->value = rem->value;
     }
     if(rem->color == BLACK){
         RBdelete_fixUp(suc);
     }
 
     delete rem;
+}
+
+Node* RBTree::minimum(Node* node){
+    while (node->left != nil){
+        node = node->left;
+    }
+    return node;
+}
+
+void RBTree::RBinsert_fixUp(Node* node){
+    root->color = BLACK;
+    
+    while(node->parent->color == RED){
+        if(node->parent == node->parent->parent->left){
+            Node* aux = node->parent->parent->right;
+            if(aux->color == RED){
+                node->parent->color = BLACK;
+                aux->color = BLACK;
+                node->parent->parent->color = RED;
+                node = node->parent->parent;
+            }else{
+                if(node == node->parent->right){
+                    node = node->parent;
+                    left_rotate(node);
+                }
+                node->parent->color = BLACK;
+                node->parent->parent->color = RED;
+                right_rotate(node->parent->parent);
+            }
+        }else{
+            
+        }
+    }
+}
+
+void RBTree::RBdelete_fixUp(Node* z){
+    z->color = BLACK;
+
+    while (z != root && z->color == BLACK){
+        if(z == z->parent->left){
+            Node* aux = z->parent->right;
+            if(aux->color == RED){
+                aux->color = BLACK;
+                z->parent->color = RED;
+                left_rotate(z->parent);
+                aux = z->parent->right;
+            }
+            if(aux->left->color == BLACK && aux->right->color == BLACK){
+                aux->color = RED;
+                z = z->parent;
+            }else{
+                if(aux->right->color == BLACK){
+                    aux->left->color = BLACK;
+                    aux->color = RED;
+                    right_rotate(aux);
+                    aux = z->parent->right;
+                }
+                aux->color = z->parent->color;
+                z->parent->color = BLACK;
+                aux->right->color = BLACK;
+                left_rotate(z->parent);
+                z = root;
+            }
+        }else{
+            
+        }
+    }
+    
 }
