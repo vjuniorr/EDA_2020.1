@@ -18,6 +18,29 @@ RBTree::~RBTree() {
     root = nullptr;
 }
 
+void RBTree::preorder() const{
+    Node* tree = root;
+    stack<Node*> pilha;
+    if(tree != nil){
+        pilha.push(tree);
+        while(!pilha.empty()){
+            tree = pilha.top();
+            pilha.pop();
+            if(tree->color == BLACK){
+                cout << "(" << tree->key << "," << tree->value << ") -> Black" << endl;
+            }else{
+                cout << "(" << tree->key << "," << tree->value << ") -> Red" << endl;
+            }
+            if(tree->right != nil){
+                pilha.push(tree->right);
+            }
+            if(tree->left != nil){
+                pilha.push(tree->left);
+            }
+        }
+    } 
+}
+
 void RBTree::clear (Node* node){
     stack<Node*> nodes;
     if(!nodes.empty()){
@@ -198,7 +221,21 @@ void RBTree::RBinsert_fixUp(Node* node){
                 right_rotate(node->parent->parent);
             }
         }else{
-            
+            Node* aux = node->parent->parent->left;
+            if(aux->color == RED){
+                node->parent->color = BLACK;
+                aux->color = BLACK;
+                node->parent->parent->color = RED;
+                node = node->parent->parent;
+            }else{
+                if(node == node->parent->left){
+                    node = node->parent;
+                    right_rotate(node);
+                }
+                node->parent->color = BLACK;
+                node->parent->parent->color = RED;
+                left_rotate(node->parent->parent);
+            }
         }
     }
 }
