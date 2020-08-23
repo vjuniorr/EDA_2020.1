@@ -20,7 +20,25 @@ int main()
     cout << "-----------------------------------" << endl;
     tree.remove(8);
     tree.preorder();
-    /* cout << "-----------------------------------" << endl;
+    cout << "-----------------------------------" << endl;
     tree.remove(10);
-    tree.preorder(); */
+    tree.preorder();
+    cout << "-----------------------------------" << endl;
+    tree.remove(9);
+    tree.preorder();
+    cout << "-----------------------------------" << endl;
+    tree.remove(7);
+    tree.preorder();
+    cout << "-----------------------------------" << endl;
+    tree.remove(6);
+    tree.preorder();
+    cout << "-----------------------------------" << endl;
+    tree.remove(5);
+    tree.preorder();
+    cout << "-----------------------------------" << endl;
+    tree.remove(4);
+    tree.preorder();
+    cout << "-----------------------------------" << endl;
+    tree.remove(20);
+    tree.preorder();
 }
