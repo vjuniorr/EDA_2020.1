@@ -124,8 +124,9 @@ void RBTree::RBinsert(Node* node){
         }
         if(node->key < son->key){
             son = son->left;
+        }else{
+            son = son->right;
         }
-        son = son->right;
     }
     node->parent = father;
     if(father == nil){
@@ -147,8 +148,9 @@ void RBTree::remove(const Tkey &key){
     while(aux != nil && aux->key != key){
         if(aux->key > key){
             aux = aux->left;
+        }else{
+            aux = aux->right;
         }
-        aux = aux->right;
     }
 
     if(aux != nil){
@@ -156,41 +158,31 @@ void RBTree::remove(const Tkey &key){
     }
 }
 
-void RBTree::RBdelete(Node* node){
-    Node* rem; // No que será removido
-    Node* suc; // No que vai tomar seu lugar
+void RBTree::RBdelete(Node* z){
+    Node* y; // No que será removido
+    Node* x; // No que vai tomar seu lugar
 
-    if(node->left == nil || node->right == nil){
-        rem = node;
-    }else{
-        rem = minimum(node->right);
-    }
-    if(rem->left != nil){
-        suc = rem->left;
-    }else{
-        suc = rem->right;
-    }
-    if(suc != nil){
-        suc->parent = rem->parent;
-    }
-    if(rem->parent == nil){
-        root = suc;
-    }else{
-        if(rem == rem->parent->left){
-            rem->parent->left = suc;
-        }else{
-            rem->parent->right = suc;
-        }
-    }
-    if(rem != node){
-        node->key = rem->key;
-        node->value = rem->value;
-    }
-    if(rem->color == BLACK){
-        RBdelete_fixUp(suc);
-    }
+    if(z->left == nil || z->right == nil) y = z;
+    else y = minimum(z->right);
+    if(y->left != nil) x = y->left;
+    else x = y->right;
 
-    delete rem;
+    x->parent = y->parent;
+
+    if(y->parent == nil){
+        root = x;
+    }else{
+        if(y == y->parent->left) y->parent->left = x;
+        else y->parent->right = x;
+    }
+    if(y != z){
+        z->key = y->key;
+        z->value = y->value;
+    }
+    if(y->color == BLACK){
+        RBdelete_fixUp(x);
+    }
+    delete y;
 }
 
 Node* RBTree::minimum(Node* node){
@@ -200,77 +192,98 @@ Node* RBTree::minimum(Node* node){
     return node;
 }
 
-void RBTree::RBinsert_fixUp(Node* node){
-    root->color = BLACK;
-    
-    while(node->parent->color == RED){
-        if(node->parent == node->parent->parent->left){
-            Node* aux = node->parent->parent->right;
-            if(aux->color == RED){
-                node->parent->color = BLACK;
-                aux->color = BLACK;
-                node->parent->parent->color = RED;
-                node = node->parent->parent;
+void RBTree::RBinsert_fixUp(Node* z){
+    while (z->parent->color == RED){
+        if(z->parent == z->parent->parent->left){
+            Node* uncle = z->parent->parent->right;
+            if(uncle->color == RED){
+                z->parent->color = BLACK;
+                uncle->color = BLACK;
+                z->parent->parent->color = RED;
+                z = z->parent->parent;
             }else{
-                if(node == node->parent->right){
-                    node = node->parent;
-                    left_rotate(node);
+                if(z == z->parent->right){
+                    z = z->parent;
+                    left_rotate(z);
                 }
-                node->parent->color = BLACK;
-                node->parent->parent->color = RED;
-                right_rotate(node->parent->parent);
+                z->parent->color = BLACK;
+                z->parent->parent->color = RED;
+                right_rotate(z->parent->parent);
             }
         }else{
-            Node* aux = node->parent->parent->left;
-            if(aux->color == RED){
-                node->parent->color = BLACK;
-                aux->color = BLACK;
-                node->parent->parent->color = RED;
-                node = node->parent->parent;
+            Node* uncle = z->parent->parent->left;
+            if(uncle->color == RED){
+                z->parent->color = BLACK;
+                uncle->color = BLACK;
+                z->parent->parent->color = RED;
+                z = z->parent->parent;
             }else{
-                if(node == node->parent->left){
-                    node = node->parent;
-                    right_rotate(node);
+                if(z == z->parent->left){
+                    z = z->parent;
+                    right_rotate(z);
                 }
-                node->parent->color = BLACK;
-                node->parent->parent->color = RED;
-                left_rotate(node->parent->parent);
+                z->parent->color = BLACK;
+                z->parent->parent->color = RED;
+                left_rotate(z->parent->parent);
             }
         }
     }
+
+    root->color = BLACK;
 }
 
-void RBTree::RBdelete_fixUp(Node* z){
-    z->color = BLACK;
-
-    while (z != root && z->color == BLACK){
-        if(z == z->parent->left){
-            Node* aux = z->parent->right;
-            if(aux->color == RED){
-                aux->color = BLACK;
-                z->parent->color = RED;
-                left_rotate(z->parent);
-                aux = z->parent->right;
+void RBTree::RBdelete_fixUp(Node* x){
+    while(x != root && x->color == BLACK){
+        if(x == x->parent->left){
+            Node* w = x->parent->right;
+            if(w->color == RED){
+                w->color = BLACK;
+                x->parent->color = RED;
+                left_rotate(x->parent);
+                w = x->parent->right; 
             }
-            if(aux->left->color == BLACK && aux->right->color == BLACK){
-                aux->color = RED;
-                z = z->parent;
+            if(w->left->color == BLACK && w->right->color == BLACK){
+                w->color = RED;
+                x = x->parent;
             }else{
-                if(aux->right->color == BLACK){
-                    aux->left->color = BLACK;
-                    aux->color = RED;
-                    right_rotate(aux);
-                    aux = z->parent->right;
+                if(w->right->color == BLACK){
+                    w->left->color = BLACK;
+                    w->color = RED;
+                    right_rotate(w);
+                    w = x->parent->right;
                 }
-                aux->color = z->parent->color;
-                z->parent->color = BLACK;
-                aux->right->color = BLACK;
-                left_rotate(z->parent);
-                z = root;
+                w->color = x->parent->color;
+                x->parent->color = BLACK;
+                w->right->color = BLACK;
+                left_rotate(x->parent);
+                x = root;
             }
         }else{
-            
+            Node* w = x->parent->left;
+            if(w->color == RED){
+                w->color = BLACK;
+                x->parent->color = RED;
+                right_rotate(x->parent);
+                w = x->parent->left;
+            }
+            if(w->left->color == BLACK && w->right->color == BLACK){
+                w->color = RED;
+                x = x->parent;
+            }else{
+                if(w->left->color == BLACK){
+                    w->right->color = BLACK;
+                    w->color = RED;
+                    left_rotate(w);
+                    w = x->parent->left;
+                }
+                w->color = x->parent->color;
+                x->parent->color = BLACK;
+                w->right->color = BLACK;
+                right_rotate(x->parent);
+                x = root;
+            }
         }
     }
-    
+
+    x->color = BLACK;
 }

@@ -4,7 +4,8 @@
 
 using namespace std;
 
-int main(){
+int main()
+{
     RBTree tree = RBTree();
 
     tree.insert(5, "a");
@@ -16,5 +17,10 @@ int main(){
     tree.insert(10, "g");
     tree.insert(20, "h");
     tree.preorder();
-    tree.~RBTree();
+    cout << "-----------------------------------" << endl;
+    tree.remove(8);
+    tree.preorder();
+    /* cout << "-----------------------------------" << endl;
+    tree.remove(10);
+    tree.preorder(); */
 }
