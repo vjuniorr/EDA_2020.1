@@ -21,9 +21,13 @@ public:
     RBTree();
     void insert(const Tkey &key, const Tvalue &v);
     void remove(const Tkey &key);
-    bool search(const Tkey &key, const Tvalue *v);
+    void clearM();
+    bool search(const Tkey &key);
     void preorder();
     bool empty();
+    int height();
     ~RBTree();
 };
+
+void menu();
 #endif
