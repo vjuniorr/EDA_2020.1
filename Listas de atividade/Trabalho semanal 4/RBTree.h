@@ -2,6 +2,8 @@
 #define RBTREE_H
 #include "Node.h"
 
+//Francisco Valdemi Leal Costa Junior - 485325
+
 class RBTree{
 private:
     Node *root = nullptr;
