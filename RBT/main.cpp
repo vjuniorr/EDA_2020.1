@@ -18,6 +18,9 @@ int main()
     tree.insert(20, "h");
     tree.preorder();
     cout << "-----------------------------------" << endl;
+    tree.~RBTree();
+
+    /* cout << "-----------------------------------" << endl;
     tree.remove(8);
     tree.preorder();
     cout << "-----------------------------------" << endl;
@@ -40,5 +43,5 @@ int main()
     tree.preorder();
     cout << "-----------------------------------" << endl;
     tree.remove(20);
-    tree.preorder();
+    tree.preorder(); */
 }

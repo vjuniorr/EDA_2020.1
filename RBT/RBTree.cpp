@@ -18,7 +18,7 @@ RBTree::~RBTree() {
     root = nullptr;
 }
 
-void RBTree::preorder() const{
+void RBTree::preorder(){
     Node* tree = root;
     stack<Node*> pilha;
     if(tree != nil){
@@ -41,22 +41,31 @@ void RBTree::preorder() const{
     } 
 }
 
-void RBTree::clear (Node* node){
-    stack<Node*> nodes;
-    if(!nodes.empty()){
-        nodes.push(node);
+bool RBTree::empty(){
+    if(root->left == nil && root->right == nil){
+        return true;
     }
-    while (!nodes.empty()){
-        Node* aux = nodes.top();
-        if(aux->right != nil){
-            nodes.push(aux->right);
-        }
-        if(aux->left != nil){
-            nodes.push(aux->left);
-        }
-        if(aux->right == nil && aux->left == nil){
-            RBdelete(nodes.top());
+    return false;
+}
 
+void RBTree::clear(Node* root) {
+    Node* aux = root;
+    stack<Node*> nodes;
+
+    if(aux != nil){
+        nodes.push(aux);
+    }
+    while(!nodes.empty()){
+        Node* node = nodes.top();
+        if(node->right != nil){
+            nodes.push(node->right);
+        }
+        if(node->left != nil){
+            nodes.push(node->left);
+        }
+        if(node->left == nil && node->right == nil){
+            RBdelete(node);
+            nodes.pop();
         }
     }
 }

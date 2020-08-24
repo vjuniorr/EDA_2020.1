@@ -4,8 +4,8 @@
 
 class RBTree{
 private:
-    Node *root;
-    Node *nil;
+    Node *root = nullptr;
+    Node *nil = nullptr;
 
 protected:
     void left_rotate(Node *node);
@@ -21,9 +21,9 @@ public:
     RBTree();
     void insert(const Tkey &key, const Tvalue &v);
     void remove(const Tkey &key);
-    bool search(const Tkey &key, Tvalue *v) const;
-    void preorder() const;
-    bool empty() const;
+    bool search(const Tkey &key, const Tvalue *v);
+    void preorder();
+    bool empty();
     ~RBTree();
 };
 #endif
