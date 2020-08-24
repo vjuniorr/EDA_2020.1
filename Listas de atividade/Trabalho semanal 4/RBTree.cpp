@@ -114,6 +114,8 @@ bool RBTree::empty(){
     return false;
 }
 
+//Função visivel ao menu para chamar a clear e fazer a limpeza da arvore
+
 void RBTree::clearM(){
     clear(root);
     return;
