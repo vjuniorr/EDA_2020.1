@@ -80,7 +80,12 @@ Bnode *Bnode::search(int k, int& index) {
 
  
 void Bnode::printKeys() { 
-    /* Programar */
+    if(leaf != true){
+        c[0]->printKeys();
+    }
+    for(int i = 0; i < (2*d) - 1; i++){
+        std::cout << key[i] << std::endl;
+    }
 } 
 
 

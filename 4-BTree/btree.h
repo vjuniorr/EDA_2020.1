@@ -28,7 +28,8 @@ public:
 Btree::Btree(int d) {
     this->d = d;
     root = nullptr;
-}
+}    /* Programar */
+
 
 bool Btree::search(int k) {
     if(root != nullptr) {
