@@ -15,17 +15,16 @@ long int filter_cpf(string cpf){
 
 int main (){
     ifstream myfile;
-    string registro;
-    string aux;
+    string line;
     long int cpf;
     //pessoas* pessoa = new pessoas{}
 
     myfile.open("data.csv");
-    getline(myfile, registro);
+    getline(myfile, line);
 
     //int cont = 0;
-    getline(myfile, registro, ',');
+    getline(myfile, line, ',');
 
-    cpf = filter_cpf(registro);
+    cpf = filter_cpf(line);
     cout << cpf << endl;
 }
