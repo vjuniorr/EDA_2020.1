@@ -2,24 +2,23 @@
 
 using namespace std;
 
-/* class pessoas
-{
+class pessoas{
 private:
 public:
-    int cpf;
+    string cpf;
     string nome;
     string sobrenome;
     string cidade;
-    string data;
-    pessoas(args );
-//~pessoas();
-//}
-//;
+    struct tm data;
+    pessoas();
+    ~pessoas();
+}
+;
 
-//pessoas::pessoas(/* args )
-//{
-//    pessoas *pessoa = new pessoas{};
-//}
+pessoas::pessoas(){
+    
+}
 
-//pessoas::~pessoas(){} 
-*/
+pessoas::~pessoas(){
+    
+} 
