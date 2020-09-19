@@ -1,54 +1,49 @@
 #include <bits/stdc++.h>
-#include <time.h>
 #include "pessoa.h"
 
 using namespace std;
 
-/* long int filter_cpf(string cpf){
-   string out;
-   for(int i = 0; i < cpf.size(); i++){
-       if(cpf[i] != '.' && cpf[i] != '-'){
-           out += cpf[i];
-       }
-   }
-   return stol(out); 
-} */
-
 int main (){
     ifstream myfile;
     string line;
-    string cpf;
-    struct tm data;
-    pessoas* pessoa = new pessoas[500];
+    pessoas* pessoa; // Objeto pessoa
+    //vector<pessoas*> vec;
 
-    myfile.open("data.csv");
-    getline(myfile, line);
+    myfile.open("data.csv"); // Abrindo o arquivo para fazer a leitura
+    getline(myfile, line); // Pegando a primeira linha do arquivo (NationalID, GivenName....)
 
-    //int cont = 0;
-    /* getline(myfile, line, ',');
-
-    cpf = line;
-
-    getline(myfile, line, ',');
-    getline(myfile, line, ',');
-    getline(myfile, line, '/');
-    data.tm_mon = stoi(line);
-    getline(myfile, line, '/');
-    data.tm_mday = stoi(line);
-    getline(myfile, line, ',');
-    data.tm_year = stoi(line);
-
-
-    cout << cpf << endl;
-
-    cout << data.tm_mday << endl;
-    cout << data.tm_mon << endl;
-    cout << data.tm_year << endl;
-*/
-
-    while(myfile.good()){
+    while(myfile.good()){ // Lendo todas as linhas do arquivo e colocando os dados nos objetos
+        pessoa = new pessoas();
+        
+        getline(myfile, line);
+        
         getline(myfile, line, ',');
         pessoa->cpf = line;
         getline(myfile, line, ',');
+        pessoa->nome = line;
+        getline(myfile, line, ',');
+        pessoa->sobrenome = line;
+        getline(myfile, line, '/');
+        pessoa->data.tm_mon = stoi(line);
+        getline(myfile, line, '/');
+        pessoa->data.tm_mday = stoi(line);
+        getline(myfile, line, ',');
+        pessoa->data.tm_year = stoi(line);
+        getline(myfile, line, ';');
+        pessoa->cidade = line;
+        
+        //vec.push_back(pessoa);
     }
+
+    /* for(auto const& i : list){
+        cout << i->cpf << ", ";
+        cout << i->nome << ", ";
+        cout << i->sobrenome << ", ";
+        cout << i->data.tm_mon<< "/";
+        cout << i->data.tm_mday<< "/";
+        cout << i->data.tm_year<< ", ";
+        cout << i->cidade << endl;
+    } */  
+
+    //cout << line << endl;
 } 
