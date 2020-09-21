@@ -9,5 +9,6 @@ class Node{
         Tvalue value;
         Node* left;
         Node* right;
+        int height;
 };
 #endif

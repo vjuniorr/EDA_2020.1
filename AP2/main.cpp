@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 #include "pessoa.h"
+#include "avl.h"
 
 using namespace std;
 
@@ -7,7 +8,8 @@ int main (){
     ifstream myfile;
     string line;
     pessoas* pessoa; // Objeto pessoa
-    //vector<pessoas*> vec;
+    avl<string, pessoas*>* cpf = new avl<string, pessoas*>();
+    avl<string, pessoas[]>* nomes = new avl<string, pessoas[]>();
 
     myfile.open("data.csv"); // Abrindo o arquivo para fazer a leitura
     getline(myfile, line); // Pegando a primeira linha do arquivo (NationalID, GivenName....)
