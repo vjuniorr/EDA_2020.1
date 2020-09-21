@@ -1,4 +1,8 @@
+#ifndef MAIN
+#define MAIN
+
 #include <bits/stdc++.h>
+#include "node.h"
 #include "pessoa.h"
 #include "avl.h"
 
@@ -7,16 +11,19 @@ using namespace std;
 int main (){
     ifstream myfile;
     string line;
-    pessoas* pessoa; // Objeto pessoa
-    avl<string, pessoas*>* cpf = new avl<string, pessoas*>();
-    avl<string, pessoas[]>* nomes = new avl<string, pessoas[]>();
+    Pessoas* pessoa; // Objeto pessoa
+    avl<string>* cpf = new avl<string>();
+    avl<string>* nomes = new avl<string>();
+    Node<string>* aux; 
+    int cont = 0;
+    vector<Pessoas*> vec;
 
     myfile.open("data.csv"); // Abrindo o arquivo para fazer a leitura
-    getline(myfile, line); // Pegando a primeira linha do arquivo (NationalID, GivenName....)
+     // Pegando a primeira linha do arquivo (NationalID, GivenName....)
 
     while(myfile.good()){ // Lendo todas as linhas do arquivo e colocando os dados nos objetos
-        pessoa = new pessoas();
-        
+        pessoa = new Pessoas();
+        cont++;
         getline(myfile, line);
         
         getline(myfile, line, ',');
@@ -34,10 +41,22 @@ int main (){
         getline(myfile, line, ';');
         pessoa->cidade = line;
         
-        //vec.push_back(pessoa);
+        cpf->avlInsert(pessoa->cpf, pessoa);
+        //cout << cont << endl;
+        vec.push_back(pessoa);
     }
 
-    /* for(auto const& i : list){
+    /* cpf->avl_inorder(cpf->GetRoot());
+    aux = cpf->avlSearch("187.599.824-11");
+
+    for(int i = 0; i < aux->value.size(); i++){
+        cout << aux->value[i]->cpf << endl;
+        cout << aux->value[i]->nome << endl;
+        cout << aux->value[i]->sobrenome << endl;
+        cout << aux->value[i]->data.tm_mday << "/" << aux->value[i]->data.tm_mon << "/" << aux->value[i]->data.tm_year << endl;
+    } */
+
+    for(auto const& i : vec){
         cout << i->cpf << ", ";
         cout << i->nome << ", ";
         cout << i->sobrenome << ", ";
@@ -45,7 +64,9 @@ int main (){
         cout << i->data.tm_mday<< "/";
         cout << i->data.tm_year<< ", ";
         cout << i->cidade << endl;
-    } */  
+    }   
 
     //cout << line << endl;
 } 
+
+#endif

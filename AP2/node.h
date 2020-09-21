@@ -1,14 +1,17 @@
-#ifndef NODE_H
-#define NODE_H
+#ifndef NODE
+#define NODE
 
-template <typename Tkey, typename Tvalue>
+#include <vector>
+#include "pessoa.h"
+template <typename Tkey>
 
 class Node{
     public:
         Tkey key;
-        Tvalue value;
+        vector<Pessoas*> value;
         Node* left;
         Node* right;
         int height;
 };
+
 #endif
