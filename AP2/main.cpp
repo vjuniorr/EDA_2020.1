@@ -8,6 +8,7 @@
 
 using namespace std;
 
+
 int main (){
     ifstream myfile;
     string line;
@@ -22,8 +23,9 @@ int main (){
      // Pegando a primeira linha do arquivo (NationalID, GivenName....)
 
     while(myfile.good()){ // Lendo todas as linhas do arquivo e colocando os dados nos objetos
+        //cout << "aqui" << endl;
         pessoa = new Pessoas();
-        cont++;
+        //cont++;
         getline(myfile, line);
         
         getline(myfile, line, ',');
@@ -41,31 +43,26 @@ int main (){
         getline(myfile, line, ';');
         pessoa->cidade = line;
         
-        cpf->avlInsert(pessoa->cpf, pessoa);
-        //cout << cont << endl;
+        /* cpf->avlInsert(pessoa->cpf, pessoa);
+        cout << cont << endl;
+        cout << myfile.good() << endl; */
         vec.push_back(pessoa);
     }
 
-    /* cpf->avl_inorder(cpf->GetRoot());
-    aux = cpf->avlSearch("187.599.824-11");
+    //aux = cpf->avlSearch("187.599.824-11");
 
-    for(int i = 0; i < aux->value.size(); i++){
-        cout << aux->value[i]->cpf << endl;
-        cout << aux->value[i]->nome << endl;
-        cout << aux->value[i]->sobrenome << endl;
-        cout << aux->value[i]->data.tm_mday << "/" << aux->value[i]->data.tm_mon << "/" << aux->value[i]->data.tm_year << endl;
+    /* for(int i = 0; i < aux->value.size(); i++){
+        cpf->avlInsert(vec[i]->cpf, vec[i]);
     } */
 
-    for(auto const& i : vec){
-        cout << i->cpf << ", ";
-        cout << i->nome << ", ";
-        cout << i->sobrenome << ", ";
-        cout << i->data.tm_mon<< "/";
-        cout << i->data.tm_mday<< "/";
-        cout << i->data.tm_year<< ", ";
-        cout << i->cidade << endl;
-    }   
+    //cpf->avl_inorder(cpf->GetRoot()); 
 
+    for(auto const& i : vec){
+        cont++;
+        cpf->avlInsert(i->cpf, i);
+    }
+    cpf->avl_inorder(cpf->GetRoot());   
+    cout << cont << endl;
     //cout << line << endl;
 } 
 

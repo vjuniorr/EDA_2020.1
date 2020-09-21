@@ -10,7 +10,7 @@ template <typename Tkey>
 
 class avl{
 private:
-    Node<Tkey> *root;
+    Node<Tkey> *root = nullptr;
 protected:
     Node<Tkey>* left_rotate(Node<Tkey> *node){
         Node<Tkey> *aux = node->right;
@@ -37,6 +37,7 @@ protected:
             novo->key = key;
             novo->value.push_back(value);
             novo->height = 1;
+            novo->left = novo->right = nullptr;
             return novo;
         }
 
