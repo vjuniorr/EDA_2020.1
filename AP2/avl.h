@@ -126,7 +126,7 @@ public:
     ~avl();
 
     void avlInsert(Tkey key, Pessoas* value){
-        root = avl_insert(root, key, value);
+        this->root = avl_insert(root, key, value);
     }
 
     void avl_inorder(Node<Tkey>* root){
