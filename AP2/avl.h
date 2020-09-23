@@ -118,8 +118,20 @@ protected:
         return str;
     }
 
-    void avl_searchDate(Node<Tkey>* node, Tkey key){
-        
+    void avl_searchDate(Node<Tkey>* node, Tkey data1, Tkey data2){
+        if(node == nullptr){
+            return;
+        }
+
+        if(node->key >= data1 && node->key <= data2){
+            avl_searchDate(node->left, data1, data2);
+            avl_cout(node);
+            avl_searchDate(node->right, data1, data2);
+        }else if(node->key < data1){
+            avl_searchDate(node->right, data1, data2);
+        }else if(node->key > data2){
+            avl_searchDate(node->left, data1, data2);
+        }
     }
 
     int avl_height(Node<Tkey> *node){
@@ -167,6 +179,10 @@ public:
         }else{
             nome_inorder(node->right, key);
         }
+    }
+
+    void data(Tkey data1, Tkey data2){
+        avl_searchDate(root, data1, data2);
     }
 
     void avl_inorder(Node<Tkey>* root){

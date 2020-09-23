@@ -59,7 +59,8 @@ int main (){
     }
     //cpf->avl_inorder(cpf->GetRoot());
     
-    //nomes->nome_inorder(nomes->GetRoot(), "Murilo");
+    nomes->nome_inorder(nomes->GetRoot(), "Ma");
+    //datas->data(19840222, 20000802);
     /* for(int i = 0; i < nomes->vec.size(); i++){
         pessoa = aux->value[i];
         cout << pessoa->cpf << ",";
