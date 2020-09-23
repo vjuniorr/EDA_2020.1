@@ -27,8 +27,10 @@ int main (){
         getline(myfile, line);
    
         pessoa->set_pessoa(line);
-        cout << pessoa->cpf << endl;
+        //cout << pessoa->cpf << endl;
         cpf->avlInsert(pessoa->cpf, pessoa);
+        nomes->avlInsert(pessoa->nome, pessoa);
+        //cpf->avl_inorder(cpf->GetRoot());
         /* cout << pessoa->cpf << ",";
         cout << pessoa->nome << ",";
         cout << pessoa->sobrenome << ",";
@@ -37,6 +39,19 @@ int main (){
         cout << pessoa->data.tm_year << endl; */
     }
     //cpf->avl_inorder(cpf->GetRoot());
+    
+    nomes->avl_searchName("M");
+    /* for(int i = 0; i < nomes->vec.size(); i++){
+        pessoa = aux->value[i];
+        cout << pessoa->cpf << ",";
+        cout << pessoa->nome << ",";
+        cout << pessoa->sobrenome << ",";
+        cout << pessoa->data.tm_mon << "/";
+        cout << pessoa->data.tm_mday << "/";
+        cout << pessoa->data.tm_year << ",";
+        cout << pessoa->cidade << endl;
+    } */
+    
 } 
 
 #endif

@@ -2,6 +2,7 @@
 #define AVL_H
 //#include <bits/stdc++.h>
 #include <vector>
+#include <list>
 #include "node.h"
 #include "pessoa.h"
 
@@ -10,15 +11,17 @@ template <typename Tkey>
 
 class avl{
 private:
-    Node<Tkey> *root = nullptr;
+    Node<Tkey> *root = NULL;
 protected:
     Node<Tkey>* left_rotate(Node<Tkey> *node){
         Node<Tkey> *aux = node->right;
         node->right = aux->left;
         aux->left = node;
 
-        node->height = 1 + max(avl_height(node->right), avl_height(node->left));
-        aux->height = 1 + max(avl_height(node->right), avl_height(node->left));
+        node->height = 1 + max(avl_height(node->left), avl_height(node->right));
+        aux->height = 1 + max(avl_height(aux->left), avl_height(aux->right));
+
+        return aux;
     }
 
     Node<Tkey>* right_rotate(Node<Tkey> *node){
@@ -28,10 +31,12 @@ protected:
         aux->right = node;                    // O meu auxiliar passa a ter o no e seus filhos (que são maiores que ele) como sub-arvore a direita
         // Atualizar a aultura dos nos
         node->height = 1 + max(avl_height(node->left), avl_height(node->right));
-        aux->height = 1 + max(avl_height(node->left), avl_height(node->right));
+        aux->height = 1 + max(avl_height(aux->left), avl_height(aux->right));
+
+        return aux;
     }
 
-    Node<Tkey>* avl_insert(Node<Tkey> *node, Tkey key, Pessoas* value){
+    Node<Tkey> * avl_insert(Node<Tkey>* node, Tkey key, Pessoas* value){
         if (node == nullptr){
             Node<Tkey> *novo = new Node<Tkey>();
             novo->key = key;
@@ -56,7 +61,7 @@ protected:
         node = avlinsert_fixup(node, key);
         return node;
     }
-
+    
     Node<Tkey> *avlinsert_fixup(Node<Tkey> *node, Tkey key){
         int equi = avl_balance(node);
 
@@ -80,7 +85,6 @@ protected:
     
     Node<Tkey>* avl_searchCPF(Node<Tkey> *node, Tkey key){
         Node<Tkey>* aux = root;
-        cout << root->key << endl;
         while(aux != nullptr){
             if(aux->key > key){
                 aux = aux->left;
@@ -94,7 +98,7 @@ protected:
         return nullptr;
     }
 
-    void avl_searchName(Node<Tkey>* node, Tkey key);
+
 
     void avl_searchDate(Node<Tkey>* node, Tkey key);
 
@@ -115,8 +119,9 @@ protected:
     }
 
 public:
+    vector<Node<Tkey>*> vec;
     avl(){
-        root = new Node<Tkey>();
+        //root = new Node<Tkey>();
     }
 
     Node<Tkey>* GetRoot(){
@@ -126,7 +131,39 @@ public:
     ~avl();
 
     void avlInsert(Tkey key, Pessoas* value){
-        this->root = avl_insert(root, key, value);
+        root = avl_insert(root, key, value);
+    }
+
+    void avl_searchName(Tkey key){
+        Node<Tkey>* aux = root;
+        
+        while(aux != nullptr){
+            if(nome_(aux->key, key.size()) > key){
+                aux = aux->left;
+            }else if(nome_(aux->key, key.size()) < key){
+                aux = aux->right;
+            }else{
+                return nome_inorder(aux, key);
+            }
+        }
+    }
+
+    void nome_inorder(Node<Tkey>* node, string key){
+        if(node == nullptr || nome_(node->key, key.size()) != key){
+            return;
+        }
+
+        nome_inorder(node->left, key);
+        vec.push_back(node);
+        nome_inorder(node->right, key);
+    }
+
+    string nome_(string nome, int aux){
+        string str;
+        for(int i = 0; i < aux; i++){
+            str += nome[i];
+        }
+        return str;
     }
 
     void avl_inorder(Node<Tkey>* root){
