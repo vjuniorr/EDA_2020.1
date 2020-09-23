@@ -98,9 +98,29 @@ protected:
         return nullptr;
     }
 
+    void avl_cout(Node<Tkey>* node){
+        for(int i = 0; i < node->value.size(); i++){
+            cout << node->value[i]->cpf << ",";
+            cout << node->value[i]->nome << ",";
+            cout << node->value[i]->sobrenome << ",";
+            cout << node->value[i]->data.tm_mon << "/";
+            cout << node->value[i]->data.tm_mday << "/";
+            cout << node->value[i]->data.tm_year << ",";
+            cout << node->value[i]->cidade << endl;
+        }
+    }
 
+    string nome_(string nome, int aux){
+        string str;
+        for(int i = 0; i < aux; i++){
+            str += nome[i];
+        }
+        return str;
+    }
 
-    void avl_searchDate(Node<Tkey>* node, Tkey key);
+    void avl_searchDate(Node<Tkey>* node, Tkey key){
+        
+    }
 
     int avl_height(Node<Tkey> *node){
         if(node == nullptr){
@@ -119,7 +139,6 @@ protected:
     }
 
 public:
-    vector<Node<Tkey>*> vec;
     avl(){
         //root = new Node<Tkey>();
     }
@@ -134,36 +153,20 @@ public:
         root = avl_insert(root, key, value);
     }
 
-    void avl_searchName(Tkey key){
-        Node<Tkey>* aux = root;
-        
-        while(aux != nullptr){
-            if(nome_(aux->key, key.size()) > key){
-                aux = aux->left;
-            }else if(nome_(aux->key, key.size()) < key){
-                aux = aux->right;
-            }else{
-                return nome_inorder(aux, key);
-            }
-        }
-    }
-
     void nome_inorder(Node<Tkey>* node, string key){
-        if(node == nullptr || nome_(node->key, key.size()) != key){
+        if(node == nullptr){
             return;
         }
-
-        nome_inorder(node->left, key);
-        vec.push_back(node);
-        nome_inorder(node->right, key);
-    }
-
-    string nome_(string nome, int aux){
-        string str;
-        for(int i = 0; i < aux; i++){
-            str += nome[i];
+        
+        if(nome_(node->key, key.size()) > key){
+            nome_inorder(node->left, key);
+        }else if(nome_(node->key, key.size()) == key){
+            avl_cout(node);
+            nome_inorder(node->left, key);
+            nome_inorder(node->right, key);
+        }else{
+            nome_inorder(node->right, key);
         }
-        return str;
     }
 
     void avl_inorder(Node<Tkey>* root){
