@@ -58,7 +58,7 @@ int main (){
     }
     //cpf->avl_inorder(cpf->GetRoot());
     
-    nomes->nome_inorder(nomes->GetRoot(), "Ma");
+    nomes->avlSearch_nome("Ma");
     //datas->data(19840222, 20000802);
     /* for(int i = 0; i < nomes->vec.size(); i++){
         pessoa = aux->value[i];
@@ -74,7 +74,7 @@ int main (){
     cpf->~avl();
     nomes->~avl();
     datas->~avl();
-    
+
 } 
 
 #endif
