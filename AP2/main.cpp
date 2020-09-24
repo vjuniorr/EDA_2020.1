@@ -34,8 +34,7 @@ int main (){
     Pessoas* pessoa; // Objeto pessoa
     avl<string>* cpf = new avl<string>();
     avl<string>* nomes = new avl<string>();
-    avl<int>* datas = new avl<int>();
-    Node<string>* aux; 
+    avl<int>* datas = new avl<int>(); 
 
     myfile.open("data.csv");
     getline(myfile, line);
@@ -72,6 +71,10 @@ int main (){
         cout << pessoa->cidade << endl;
     } */
 
+    cpf->~avl();
+    nomes->~avl();
+    datas->~avl();
+    
 } 
 
 #endif

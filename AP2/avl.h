@@ -11,7 +11,7 @@ template <typename Tkey>
 
 class avl{
 private:
-    Node<Tkey> *root = NULL;
+    Node<Tkey> *root;
 protected:
     Node<Tkey>* left_rotate(Node<Tkey> *node){
         Node<Tkey> *aux = node->right;
@@ -150,16 +150,29 @@ protected:
         return avl_height(node->right) - avl_height(node->left);
     }
 
+    Node<Tkey>* avl_clear(Node<Tkey>* node){
+        if(node != nullptr){
+            node->left = avl_clear(node->left);
+            node->right = avl_clear(node->right);
+            delete node;
+        }
+
+        return nullptr;
+    }
+
 public:
-    avl(){
-        //root = new Node<Tkey>();
+    avl(void){
+        root = nullptr;
     }
 
     Node<Tkey>* GetRoot(){
         return root;
     }
 
-    ~avl();
+    ~avl(void){
+        avl_clear(root);
+        root = nullptr;
+    }
 
     void avlInsert(Tkey key, Pessoas* value){
         root = avl_insert(root, key, value);
