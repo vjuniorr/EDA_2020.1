@@ -94,7 +94,7 @@ protected:
             }else if(aux->key < key){
                 aux = aux->right;
             }else{
-                avl_cout(node); // Imprimi o nó do cpf buscado
+                avl_cout(aux); // Imprimi o nó do cpf buscado
                 return;
             }
         }
@@ -174,9 +174,21 @@ protected:
         return avl_height(node->right) - avl_height(node->left);
     }
 
+    void avl_clearVector(Node<Tkey>* node){
+        for(int i = 0; i < node->value.size(); i++){
+            if(node->value[i] != nullptr){
+                Pessoas* ptr = node->value[i];
+                delete ptr;
+                node->value[i] = nullptr;
+            }
+        }
+        return;
+    }
+
     Node<Tkey>* avl_clear(Node<Tkey>* node){
         // Limpando a arvore 
         if(node != nullptr){
+            //avl_clearVector(node);
             node->left = avl_clear(node->left);
             node->right = avl_clear(node->right);
             delete node;
