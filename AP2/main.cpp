@@ -86,6 +86,7 @@ int main()
 
     } while (op != 4);
 
+    treeCPF->pessoas();
     treeCPF->~avl();
     treeData->~avl();
     treeNome->~avl();

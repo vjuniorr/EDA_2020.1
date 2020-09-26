@@ -110,20 +110,20 @@ protected:
         return str;
     }
 
-    void nome_inorder(Node<Tkey>* node, string key){
+    void avl_searchNome(Node<Tkey>* node, string key){
         // Percorre a arvore em busca dos nós que começam com a string passada pelo usuario
         if(node == nullptr){
             return;
         }
         
         if(nome_(node->key, key.size()) > key){
-            nome_inorder(node->left, key);
+            avl_searchNome(node->left, key);
         }else if(nome_(node->key, key.size()) == key){
             avl_cout(node);
-            nome_inorder(node->left, key);
-            nome_inorder(node->right, key);
+            avl_searchNome(node->left, key);
+            avl_searchNome(node->right, key);
         }else{
-            nome_inorder(node->right, key);
+            avl_searchNome(node->right, key);
         }
     }
 
@@ -174,15 +174,14 @@ protected:
         return avl_height(node->right) - avl_height(node->left);
     }
 
-    void avl_clearVector(Node<Tkey>* node){
-        for(int i = 0; i < node->value.size(); i++){
-            if(node->value[i] != nullptr){
-                Pessoas* ptr = node->value[i];
-                delete ptr;
-                node->value[i] = nullptr;
-            }
+    void avl_clearPessoas(Node<Tkey>* root){
+        if(root == nullptr){
+            return;
         }
-        return;
+
+        avl_clearPessoas(root->left);
+        delete root->value[0];
+        avl_clearPessoas(root->right);
     }
 
     Node<Tkey>* avl_clear(Node<Tkey>* node){
@@ -217,7 +216,7 @@ public:
     }
 
     void avlSearch_nome(string key){
-        nome_inorder(root, key);
+        avl_searchNome(root, key);
         return;
     }
 
@@ -234,6 +233,14 @@ public:
         avl_inorder(root->left);
         cout << root->key << endl;
         avl_inorder(root->right);
+    }
+
+    void pessoas(){
+        avl_clearPessoas(root);
+    }
+
+    int balance(){
+        return avl_balance(root);
     }
 
 };

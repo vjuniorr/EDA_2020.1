@@ -1,0 +1,13 @@
+Linux:
+-----------------------------------
+Caso não possua o g++ instalado:
+sudo apt-get install g++
+-----------------------------------
+cd suaPastaOndeEstaOsArquivos/
+g++ main.cpp -o main
+./main
+
+(Obs: O arquivo .csv deve estar na mesma pasta dos arquivos main e deve possuir o nome data.csv)
+(Obs2: O arquivo .csv é carregado automaticamente pelo codigo)
+(Exemplo de entrada do arquivo: cpf, nome, sobrenome, mes/dia/ano, cidade)
+
