@@ -39,12 +39,12 @@ int main()
 
     do
     {
-        cout << "*************************************************" << endl;
+        cout << "************************* Avl de Pessoas ************************" << endl;
         cout << "* 1 - Pesquisar pessoa pelo CPF                 *" << endl;
         cout << "* 2 - Pesquisar pessoas pelo nome               *" << endl;
         cout << "* 3 - Pesquisar pessoas pela data de nascimento *" << endl;
         cout << "* 4 - Sair                                      *" << endl;
-        cout << "*************************************************" << endl;
+        cout << "************************* Avl de Pessoas ************************" << endl;
         cin >> op;
         if (op == 1)
         {
