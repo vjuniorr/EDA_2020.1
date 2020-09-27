@@ -239,10 +239,6 @@ public:
         avl_clearPessoas(root);
     }
 
-    int balance(){
-        return avl_balance(root);
-    }
-
 };
 
 #endif
