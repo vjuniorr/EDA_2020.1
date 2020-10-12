@@ -1,18 +1,12 @@
-#ifndef graph_h
-#define graph_h
+#ifndef mgraph_h
+#define mgraph_h
 #include <iostream>
 #include <list>
 
-
-enum COLOR {
-    B = 0,
-    R = 1
-};
 class Edge {
 private:
     int vertex; 
     int weight;
-    COLOR cor; 
 public:
     Edge() { vertex = -1; weight = -1; }
     explicit Edge(int v, int w) { vertex = v; weight = w; }
