@@ -10,8 +10,7 @@ using namespace std;
  * Class MGraph : implementação de um grafo com matriz
 */
 
-class MGraph : public Graph
-{
+class MGraph : public Graph{
 private:
     int N;        // Vertices
     int M;        // Arestas

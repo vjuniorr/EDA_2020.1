@@ -23,7 +23,7 @@ void DFS_VISIT(Graph *G, int v, int *d, int *f, int &tempo)
 void DFS(Graph *G){
 
     for (int v = 0; v < G->n(); v++){
-        if (G->getMark(v) != RED && G->getMark(v) != BLACK){
+        if (G->getMark(v) != RED && G->getMark(v) != BLACK)  {
             G->setMark(v, RED);
         }
         for (int j : G->neighbors(v)){
