@@ -84,15 +84,25 @@ int main(){
     grafo->addEdge(0,2); */
 
     grafo->addEdge(0,1);
+    grafo->addEdge(1,0);
     grafo->addEdge(2,4);
+    grafo->addEdge(4,2);
     grafo->addEdge(1,3);
+    grafo->addEdge(3,1);
     grafo->addEdge(3,4);
+    grafo->addEdge(4,3);
     grafo->addEdge(2,5);
+    grafo->addEdge(5,2);
     grafo->addEdge(5,6);
+    grafo->addEdge(6,5);
     grafo->addEdge(6,7);
+    grafo->addEdge(7,6);
     grafo->addEdge(7,8);
+    grafo->addEdge(8,7);
     grafo->addEdge(8,9);
+    grafo->addEdge(9,8);
     grafo->addEdge(9,0);
+    grafo->addEdge(0,9);
     
     
     /* grafo->addEdge(0,1);

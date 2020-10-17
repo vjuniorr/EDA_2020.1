@@ -2,6 +2,7 @@
 #define graphm_h
 #include <stdexcept>
 #include <list>
+#include <vector>
 #include "graph.h"
 
 /**
