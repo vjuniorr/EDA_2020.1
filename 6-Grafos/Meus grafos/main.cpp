@@ -1,149 +1,60 @@
 #include <iostream>
 #include "mgraph.h"
 #include "Mgraph.h"
-#define BLACK 3
-#define RED 4
+#include <fstream>
+#include <sstream>
 
 using namespace std;
 
-void DFS_VISIT(Graph *G, int v, int *d, int *f, int &tempo)
-{
-    tempo++;
-    d[v] = tempo;
-    G->setMark(v, RED);
-    cout << " Vertex " << v << " visited " << endl;
-    for (int &w : G->neighbors(v))
-        if (G->getMark(w) == BLACK)
-            DFS_VISIT(G, w, d, f, tempo);
-    G->setMark(v, RED);
-    tempo++;
-    f[v] = tempo;
-}
+// Francisco Valdemi Leal Costa Junior - 485325
+// Roberto de Oliveira Coutinho - 499484
 
-void DFS(Graph *G){
+void trataDado(string dados, Graph *grafo);
 
-    for (int v = 0; v < G->n(); v++){
-        if (G->getMark(v) != RED && G->getMark(v) != BLACK){
-            G->setMark(v, RED);
-        }
-        for (int j : G->neighbors(v)){
-            for (int z = 0; z < G->n(); z++){
-                if (G->getMark(j) != RED && G->getMark(j) != BLACK){
-                    if (j == z){
-                        if (G->getMark(v) == RED){
-                            G->setMark(z, BLACK);
-                        }
-                        else{
-                            G->setMark(z, RED);
-                        }
-                    }
+int main(){
+    Graph *grafo;
+    fstream myfile;
+    string line;
+    myfile.open("grafos.txt");
+    
+    //loop que manda as linhas do csv para a função trataDado
+    getline(myfile, line);
+    int n = stoi(line);
+    grafo = new MGraph(n);
+    
+    while (myfile.good()){
+        getline(myfile, line);
+        if (line != "") { //comparação pode ser removida se o csv não tiver linha vazia
+            if (line != "0 0"){
+                trataDado(line, grafo);
+            }
+            else{
+                grafo->isBipartite();
+                grafo->~Graph();
+                getline(myfile, line);
+                int n = stoi(line);
+                if (n != 0){
+                    grafo = new MGraph(n);
+                }
+                else{
+                    getline(myfile, line);
                 }
             }
         }
     }
-
-}
-
-bool verifica(Graph *G){
-    bool ver = true;
-
-    for (int i = 0; i < G->n(); i++){
-        if(!G->neighbors(i).empty()){
-            for (int vizinhos : G->neighbors(i)){
-            if (G->getMark(i) == G->getMark(vizinhos)){
-                ver = false;
-                return ver;
-            }
-        }
-        }
-    }
-
-    return ver;
-}
-
-int main(){
-    int N = 11;
-    Graph *grafo;
-    grafo = new MGraph(N);
-
-    /* grafo->addEdge(0, 3);
-    grafo->addEdge(0, 4);
-    grafo->addEdge(0, 5);
-    grafo->addEdge(1, 3);
-    grafo->addEdge(1, 4);
-    grafo->addEdge(1, 5);
-    grafo->addEdge(2, 3);
-    grafo->addEdge(2, 4);
-    grafo->addEdge(2, 5); */
-
-    /* grafo->addEdge(0,1);
-    grafo->addEdge(1,2);
-    grafo->addEdge(2,3);
-    grafo->addEdge(0,3);
-    grafo->addEdge(1,3);
-    grafo->addEdge(0,2); */
-
-    grafo->addEdge(0,1);
-    grafo->addEdge(1,0);
-    grafo->addEdge(2,4);
-    grafo->addEdge(4,2);
-    grafo->addEdge(1,3);
-    grafo->addEdge(3,1);
-    grafo->addEdge(3,4);
-    grafo->addEdge(4,3);
-    grafo->addEdge(2,5);
-    grafo->addEdge(5,2);
-    grafo->addEdge(5,6);
-    grafo->addEdge(6,5);
-    grafo->addEdge(6,7);
-    grafo->addEdge(7,6);
-    grafo->addEdge(7,8);
-    grafo->addEdge(8,7);
-    grafo->addEdge(8,9);
-    grafo->addEdge(9,8);
-    grafo->addEdge(9,0);
-    grafo->addEdge(0,9);
-    
-    
-    /* grafo->addEdge(0,1);
-    grafo->addEdge(0,2);
-    grafo->addEdge(0,3);
-    grafo->addEdge(1,4);
-    grafo->addEdge(1,5);
-    grafo->addEdge(2,6);
-    grafo->addEdge(2,7);
-    grafo->addEdge(3,8);
-    grafo->addEdge(3,9);
-    grafo->addEdge(4,6);
-    grafo->addEdge(4,8);
-    grafo->addEdge(5,7);
-    grafo->addEdge(5,9);
-    grafo->addEdge(6,9);
-    grafo->addEdge(7,8); */
-
-    /* for(int i = 0; i < N-1; ++i) {
-		grafo->addEdge(i, i+1);
-		grafo->addEdge(i+1, i);
-	} */
-
-    DFS(grafo);
-
-    if (verifica(grafo)){
-        cout << "SIM" << endl;
-        for (int i = 0; i < N; i++){
-            cout << "Vertex " << i << ":";
-            if (grafo->getMark(i) == 3){
-                cout << "B";
-            }
-            else{
-                cout << "R";
-            }
-            cout << endl;
-        }
-    }else{
-        cout << "NAO" << endl;
-    }
-
-    grafo->~Graph();
     return 0;
+}
+
+void trataDado(string dados, Graph *grafo){
+
+    int n1, n2;
+    std::stringstream aux;
+    aux << dados;
+    getline(aux, dados, ' ');
+    n1 = stoi(dados);
+    getline(aux, dados, '\n');
+    n2 = stoi(dados);
+    //cout << n1 << " " << n2 << endl;
+    grafo->addEdge(n1, n2);
+    grafo->addEdge(n2, n1);
 }

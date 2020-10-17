@@ -62,6 +62,7 @@ public:
     // val: the value to set
     virtual int getMark(int v) = 0;
     virtual void setMark(int v, int value) = 0;
+    virtual bool isBipartite(int v,vector<bool> *visited, vector<int> *color) = 0;
 };
 
 #endif

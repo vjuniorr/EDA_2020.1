@@ -55,7 +55,7 @@ int melhor_caso(Graph* grafo){
     return dp[u][posso] = ans2;
 } */
 
-int dfs(Graph* grafo, int u, int pai, bool posso){
+/* int dfs(Graph* grafo, int u, int pai, bool posso){
 	int aux[grafo->n()][2];
 	if(aux[u][posso] != -1)
     	return aux[u][posso];
@@ -71,7 +71,7 @@ int dfs(Graph* grafo, int u, int pai, bool posso){
   	else
     	return aux[u][posso] = ans2;
 
-}
+} */
 
 int main(){
 	// criando um grafo de 4 vértices
@@ -111,8 +111,7 @@ int main(){
 	grafo->addEdge(8,9);
 	grafo->addEdge(7,10);
 	
-	/* cout << melhor_caso(grafo) << endl; */
-
+	cout << melhor_caso(grafo) << endl;
 	grafo->~Graph();
 
 	// mostrando os graus de saída
