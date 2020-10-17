@@ -17,14 +17,15 @@ int main(){
     string line;
     myfile.open("grafos.txt");
     
-    //loop que manda as linhas do csv para a função trataDado
+    // Pegando a primeira linha que vai dar o primeiro tamanho de grafo
     getline(myfile, line);
     int n = stoi(line);
     grafo = new MGraph(n);
-    
-    while (myfile.good()){
+
+    // Loop que manda as linhas do txt para a função trataDado
+    while (myfile.good()){ 
         getline(myfile, line);
-        if (line != "") { //comparação pode ser removida se o csv não tiver linha vazia
+        if (line != "") { // Comparação pode ser removida se o csv não tiver linha vazia
             if (line != "0 0"){
                 trataDado(line, grafo);
             }
@@ -45,10 +46,11 @@ int main(){
     return 0;
 }
 
+// Função que vai tratar a linha passada e adicionar as arestas ao grafo
 void trataDado(string dados, Graph *grafo){
 
     int n1, n2;
-    std::stringstream aux;
+    stringstream aux;
     aux << dados;
     getline(aux, dados, ' ');
     n1 = stoi(dados);
