@@ -51,12 +51,12 @@ void trataDado(string dados, Graph *grafo){
 
     int n1, n2;
     stringstream aux;
-    aux << dados;
-    getline(aux, dados, ' ');
-    n1 = stoi(dados);
-    getline(aux, dados, '\n');
-    n2 = stoi(dados);
-    //cout << n1 << " " << n2 << endl;
-    grafo->addEdge(n1, n2);
-    grafo->addEdge(n2, n1);
+    aux << dados; // aux vai receber a linha
+    getline(aux, dados, ' '); // Dados vai receber o que estiver na linha até encontrar o ' '
+    n1 = stoi(dados); // Transformando a string para int
+    getline(aux, dados, '\n'); // Dados vai receber o que estiver na linha até encontrar uma quebra de linha
+    n2 = stoi(dados); // Transformando a string para int
+    
+    grafo->addEdge(n1, n2); // Adicionando a aresta entre n1 e n2
+    grafo->addEdge(n2, n1); // Adicionando a aresta entre n2 e n1
 }

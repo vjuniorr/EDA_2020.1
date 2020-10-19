@@ -66,8 +66,9 @@ public:
     virtual void setMark(int v, int value) = 0;
 
     // colorindo : Função que vai colorir(1 = RED, 0 = BLACK) o meu array passado
-    // isBipartite : Função que verifica se o grafo é bipartido
     virtual bool colorindo(int vert, int color[]) = 0;
+    
+    // isBipartite : Função que verifica se o grafo é bipartido
     virtual bool isBipartite() = 0;
 };
 

@@ -5,6 +5,9 @@
 #include <vector>
 
 
+// Francisco Valdemi Leal Costa Junior - 485325
+// Roberto de Oliveira Coutinho - 499484
+
 class Edge {
 private:
     int vertex; 
@@ -62,6 +65,11 @@ public:
     // val: the value to set
     virtual int getMark(int v) = 0;
     virtual void setMark(int v, int value) = 0;
+
+    // Função responsavel por retornar o maior numero de pessoas que podem ser convidadas
+    virtual int melhor_caso() = 0;
+    //virtual int DFS(int chefe) = 0; Função que deu errado (Mais detalhes no relatorio)
+    //virtual int DFSaux(int chefe, bool chefeVai) = 0;
 };
 
 #endif
